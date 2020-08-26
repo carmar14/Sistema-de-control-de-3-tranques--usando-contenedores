@@ -1,0 +1,6 @@
+controlador.obj
+controlador_initialize.obj
+controlador_terminate.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj

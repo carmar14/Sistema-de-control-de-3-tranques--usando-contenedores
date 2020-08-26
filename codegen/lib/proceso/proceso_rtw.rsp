@@ -1,0 +1,6 @@
+proceso.obj
+proceso_initialize.obj
+proceso_terminate.obj
+rtGetInf.obj
+rtGetNaN.obj
+rt_nonfinite.obj
