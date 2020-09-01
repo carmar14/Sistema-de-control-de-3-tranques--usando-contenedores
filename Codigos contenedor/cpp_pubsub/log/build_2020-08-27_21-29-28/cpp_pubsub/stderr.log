@@ -1,0 +1,13 @@
+[01m[K/root/ws/src/cpp_pubsub/src/publisher_member_function.cpp:[m[K In member function ‘[01m[Kvoid MinimalPublisher::timer_callback()[m[K’:
+[01m[K/root/ws/src/cpp_pubsub/src/publisher_member_function.cpp:46:34:[m[K [01;31m[Kerror: [m[K‘[01m[KNum[m[K’ is not a member of ‘[01m[Kstd_msgs::msg[m[K’; did you mean ‘[01m[Ktutorial_interfaces::msg::Num[m[K’?
+   46 |     auto message =std_msgs::msg::[01;31m[KNum[m[K();// std_msgs::msg::String();
+      |                                  [01;31m[K^~~[m[K
+In file included from [01m[K/root/ws/install/tutorial_interfaces/include/tutorial_interfaces/msg/num.hpp:7[m[K,
+                 from [01m[K/root/ws/src/cpp_pubsub/src/publisher_member_function.cpp:23[m[K:
+[01m[K/root/ws/install/tutorial_interfaces/include/tutorial_interfaces/msg/detail/num__struct.hpp:121:7:[m[K [01;36m[Knote: [m[K‘[01m[Ktutorial_interfaces::msg::Num[m[K’ declared here
+  121 | using [01;36m[KNum[m[K =
+      |       [01;36m[K^~~[m[K
+make[2]: *** [CMakeFiles/talker.dir/build.make:63: CMakeFiles/talker.dir/src/publisher_member_function.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:107: CMakeFiles/talker.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:141: all] Error 2
