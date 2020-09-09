@@ -57,13 +57,13 @@ end
 plot(t,x1,'b',t,r1,'--r')
 xlabel('Tiempo (s)')
 ylabel('l_{1}(m)')
-legend('Level 1','q_{1}(m^{3}/s)')
+legend('Level 1','q_{1}(m)')
 title('Altura del tanque 1')
 figure
 plot(t,x2,'b',t,r2,'--r')
 xlabel('Tiempo (s)')
 ylabel('l_{2}(m)')
-legend('Level 2','q_{2}(m^{3}/s)')
+legend('Level 2','q_{2}(m)')
 title('Altura del tanque 2')
 figure
 plot(t,x3,'b')

@@ -253,13 +253,6 @@ ylabel('l_{2}(m)')
 legend('Level 2','q_{2}(m)','level 2 est')
 title('Altura del tanque 2')
 
-subplot(3,1,2)
-plot(t,x1,'b',t,y1u1,'--r')
-xlabel('Tiempo (s)')
-ylabel('l_{1}(m)')
-legend('Level 1','level 1 uio1')
-title('Altura del tanque 1')
-
 subplot(3,1,3)
 plot(t,x1,'b',t,y1u2,'--r')
 xlabel('Tiempo (s)')
@@ -268,25 +261,10 @@ legend('Level 1','level 1 uio2')
 title('Altura del tanque 1')
 
 figure
-subplot(3,1,1)
-plot(t,x3,'b',t,x3e,'k')
+plot(t,x3,'b',t,x3e,'k',t,y3u1,'g')
 xlabel('Tiempo (s)')
 ylabel('l_{3}(m)')
-legend('Level 3','level 3 est')
-title('Altura del tanque 3')
-
-subplot(3,1,2)
-plot(t,x3,'b',t,y3u1,'--r')
-xlabel('Tiempo (s)')
-ylabel('l_{3}(m)')
-legend('Level 3','level 3 uio1')
-title('Altura del tanque 3')
-
-subplot(3,1,3)
-plot(t,x3,'b',t,y3u2,'--r')
-xlabel('Tiempo (s)')
-ylabel('l_{3}(m)')
-legend('Level 3','level 3 uio2')
+legend('Level 3','level 3 est','level 3 uio1')
 title('Altura del tanque 3')
 
 % figure
