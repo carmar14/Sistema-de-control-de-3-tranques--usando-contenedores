@@ -253,7 +253,7 @@ for i=1:n-1
     
     xuio(:,i)=F2*[x1u2(i);x2u2(i);x3u2(i)]+T2*Bd*[u1;u2]+K2U*x1(i);
     xuio(:,i+1)=xuio(:,i);
-    y(:,i)=xuio(:,i)+H2*x1(i);
+    y(:,i)=x
     
     %actualizo los estados estimados de UIO2
     x1u2(i+1)=x1_k1u2(i);
