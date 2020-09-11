@@ -42,6 +42,7 @@ L= [0.9899 0.0005
     0.0004 0.9894
     0.0108 0.0107];
 
+
 %Diseños de UIOS
 C1=Cd(2,:);
 C2=Cd(1,:);
@@ -150,7 +151,11 @@ aiu22=zeros(n,1);
 u11=zeros(n,1);
 u22=zeros(n,1);
 
-xuio=zeros(3,n);
+%vectores de ataque magnitud estimada
+v1=zeros(n,1);
+v2=zeros(n,1);
+
+
 
 %Proces con controlador
 for i=1:n-1
@@ -203,13 +208,13 @@ for i=1:n-1
     %ataques
     if ataque==1
         if i>=100 && i<=200 || i>=1800 && i<=1900 %atques en el sensor 2
-            x2_k1(i)=x2_k1(i)-0.02;
-            x2(i)=x2(i)-0.02;
+%             x2_k1(i)=x2_k1(i)-0.02;
+            x2(i)=x2_k1(i)+0.02;
         end
         
         if i>=800 && i<=900 %atques en el sensor 1
-            x1_k1(i)=x1_k1(i)-0.03;
-            x1(i)=x1(i)-0.02;
+%             x1_k1(i)=x1_k1(i)-0.03;
+            x1(i)=x1_k1(i)+0.05;
         end
     end
     
@@ -251,9 +256,9 @@ for i=1:n-1
     x2_k1u2(i)=F2(2,:)*[x1u2(i);x2u2(i);x3u2(i)]+T2(2,:)*Bd*[u1;u2]+K2U(2)*x1(i);%A21*x1(i)+A22*x2(i)+A23*x3(i)+B21*u1+B22*u2;
     x3_k1u2(i)=F2(3,:)*[x1u2(i);x2u2(i);x3u2(i)]+T2(3,:)*Bd*[u1;u2]+K2U(3)*x1(i);%A31*x1(i)+A32*x2(i)+A33*x3(i)+B31*u1+B32*u2;
     
-    xuio(:,i)=F2*[x1u2(i);x2u2(i);x3u2(i)]+T2*Bd*[u1;u2]+K2U*x1(i);
-    xuio(:,i+1)=xuio(:,i);
-    y(:,i)=xuio(:,i)+H2*x1(i);
+%     xuio(:,i)=F2*[x1u2(i);x2u2(i);x3u2(i)]+T2*Bd*[u1;u2]+K2U*x1(i);
+%     xuio(:,i+1)=xuio(:,i);
+%     y(:,i)=xuio(:,i)+H2*x1(i);
     
     %actualizo los estados estimados de UIO2
     x1u2(i+1)=x1_k1u2(i);
@@ -300,7 +305,11 @@ for i=1:n-1
         aiu22(i)=0;
     end
     
-    
+    %estimacion del ataque
+    %ataque primer sensor
+    v1(i)=(y1u2(i)-y1u1(i))*aiu11(i)*ad(i);
+    %ataque segundo sensor
+    v2(i)=(y2u1(i)-y2u2(i))*aiu22(i)*ad(i);
 end
 
 subplot(3,1,1)
@@ -426,22 +435,42 @@ ylabel('residual isolation x2_uio2(m)')
 figure
 plot(t,u11,'r')
 title('Accion de control u1')
+xlabel('Tiempo (s)')
+ylabel('u_{1}(m^{3}/s)')
 
 figure
 plot(t,u22,'r')
 title('Accion de control u2')
+xlabel('Tiempo (s)')
+ylabel('u_{2}(m^{3}/s)')
 
 figure
 title('Alarmas')
 subplot(3,1,1)
 plot(t,ad,'r')
+xlabel('Tiempo (s)')
 title('Alarma deteccion')
 
 subplot(3,1,2)
 plot(t,aiu11,'r')
+xlabel('Tiempo (s)')
 title('Alarma aislamiento sensor 1')
 
 subplot(3,1,3)
 plot(t,aiu22,'r')
+xlabel('Tiempo (s)')
 title('Alarma aislamiento sensor 2')
+
+figure
+title('Esimacion del ataque')
+subplot(2,1,1)
+plot(t,v1,'r')
+xlabel('Tiempo (s)')
+title('Ataque sensor 1')
+
+subplot(2,1,2)
+plot(t,v2,'r')
+xlabel('Tiempo (s)')
+title('Ataque sensor 2')
+
 eig(Ad-Bd*K1); %Garantizar polos dentro del circulo unitario en lazo cerrado
