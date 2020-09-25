@@ -1,0 +1,141 @@
+---------------Hacer backups del contenedor base-------------
+lxc stop foxy
+lxc publish foxy --alias foxy3
+lxc launch foxy3 foxy3   
+
+---------------Hacer backups del contenedor base-------------
+
+
+
+
+
+--------------Topicos----------------------------------------
+1) Entrat¡r a los contenedores
+lxc exec coherent-werewolf bash  %En una terminal
+lxc exec foxy bash               %En otra terminal
+
+
+2) Ejecutar en cada contenedor la instruccion del ros
+
+source /opt/ros/foxy/setup.bash
+
+3)Entrar a ws(carpeta donde estan los codigos que se van a ejecutar)
+cd ws
+
+4)Correr la instruccion
+. install/setup.bash
+
+5) En un contenedor:
+ros2 run cpp_pubsub talker
+
+en otro:
+
+ros2 run cpp_pubsub listener
+
+--------------Topicos----------------------------------------
+
+
+
+
+
+------------------Mensajes---------------------
+
+1)Crear directorio en /ws/src
+
+ros2 pkg create --build-type ament_cmake tutorial_interfaces
+
+2)Ir a la carpetA y crear carpeta
+cd tutorial_interface
+mkdir msg
+
+3) Ir  a la carpeta y hacer una nuevo archivo
+touch Num.msg
+
+Este archivo contendra la linea 
+int64 num
+
+4) Realizar los pasos 3,4 y 5 del link:
+https://index.ros.org/doc/ros2/Tutorials/Custom-ROS2-Interfaces/
+
+Esto se hace en la ruta
+
+root@foxy:~/ws/src/tutorial_interfaces#  (pasos 3 y 4)
+
+5)Entrar a ws
+. install/setup.bash
+
+
+6)
+
+ros2 interface show tutorial_interfaces/msg/Num
+
+7) Ir al paso 7 del link :
+https://index.ros.org/doc/ros2/Tutorials/Custom-ROS2-Interfaces/
+
+Despues de modificar el package.xml y el Cmakelist.txt
+
+Ir a ws y correr la siguiente linea
+
+colcon build --packages-select cpp_pubsub
+
+
+
+9)Correr la instruccion
+ros2 run cpp_pubsub talker
+ros2 run cpp_pubsub listener
+
+
+------------------Mensajes---------------------
+
+
+
+
+
+
+
+-----------------Importante para compilar-------------------
+
+source /opt/ros/foxy/setup.bash
+. install/setup.bash
+
+ros2 pkg create --build-type ament_python py_pubsub
+
+colcon build --packages-select tutorial_interfaces
+ros2 interface show tutorial_interfaces/msg/Proceso
+ros2 interface show tutorial_interfaces/msg/Control
+
+
+
+colcon build --packages-select cpp_pubsub
+ros2 run cpp_pubsub talker
+ros2 run cpp_pubsub listener
+
+
+ros2 run cpp_pubsub envioControl
+ros2 run cpp_pubsub envioProceso
+ros2 run cpp_pubsub recepcionControl
+ros2 run cpp_pubsub recepcionProceso
+
+
+ros2 run cpp_pubsub controlador
+ros2 run cpp_pubsub proceso
+ros2 run cpp_pubsub detector
+
+
+//-----------------Grafica------------
+--------------------------------------
+python3 -m http.server 8000    %Corre un html de una forma sencilla
+-----------------------------------------------------
+
+colcon build --packages-select py_pubsub
+
+ros2 run py_pubsub graficac
+ros2 run py_pubsub graficap
+ros2 run py_pubsub graficad
+
+
+//--------------Se requiere de otros paquetes
+pip3 install -U rosdep
+
+Despues seguir con:
+http://wiki.ros.org/rqt_plot

@@ -207,12 +207,12 @@ for i=1:n-1
     
     %ataques
     if ataque==1
-        if i>=100 && i<=200 || i>=1800 && i<=1900 %atques en el sensor 2
-%             x2_k1(i)=x2_k1(i)-0.02;
-            x2(i)=x2_k1(i)+0.02;
+        if i>=600 && i<=650 || i>=1800 && i<=1900 %atques en el sensor 2
+%             x_k1(i)=x2_k1(i)-0.02;
+            x2(i)=x2_k1(i)+0.07;
         end
         
-        if i>=800 && i<=900 %atques en el sensor 1
+        if i>=800 && i<=900 || i>=2800 && i<=2870%atques en el sensor 1
 %             x1_k1(i)=x1_k1(i)-0.03;
             x1(i)=x1_k1(i)+0.05;
         end
@@ -225,6 +225,7 @@ for i=1:n-1
     
     
     %Deteccion y aislamiento
+    %if (i>=10)
     
     %calculo los estados estimados de Luenberguer
     x1_k1e(i)=Ad(1,:)*[x1e(i);x2e(i);x3e(i)]+Bd(1,:)*[u1;u2]+L(1,1)*(x1(i)-x1e(i))+L(1,2)*(x2(i)-x2e(i));%A11*x1(i)+A12*x2(i)+A13*x3(i)+B11*u1+B12*u2;
@@ -310,6 +311,7 @@ for i=1:n-1
     v1(i)=(y1u2(i)-y1u1(i))*aiu11(i)*ad(i);
     %ataque segundo sensor
     v2(i)=(y2u1(i)-y2u2(i))*aiu22(i)*ad(i);
+    %end
 end
 
 subplot(3,1,1)
