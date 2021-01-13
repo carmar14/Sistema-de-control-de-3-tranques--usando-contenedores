@@ -68,7 +68,7 @@ t=t';
 q1=q1'; %vector columna ref 1
 q2=q2'; %vector columna ref 2
 
-ataque=1;
+ataque=0; %1 para llevar acabo un ataque
 [n m]=size(q1); % n vector de tiempos en muestras
 
 %Estados en el tiempo k

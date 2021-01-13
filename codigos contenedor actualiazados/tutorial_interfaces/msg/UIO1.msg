@@ -1,0 +1,17 @@
+int64 num
+int64 u1
+int64 u2
+int64 x1u1
+int64 x2u1
+int64 x3u1
+int64 x1u2
+int64 x2u2
+int64 x3u2
+int64 x1l
+int64 x2l
+int64 x3l
+int64 ai1
+int64 ai2
+int64 ad
+int64 v1
+int64 v2

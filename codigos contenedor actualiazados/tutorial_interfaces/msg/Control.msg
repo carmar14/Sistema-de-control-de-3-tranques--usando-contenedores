@@ -1,0 +1,10 @@
+int64 num
+int64 x1
+int64 x2
+int64 x3
+int64 ai1_k1
+int64 ai2_k2
+int64 q1
+int64 q2
+int64 u1 
+int64 u2
