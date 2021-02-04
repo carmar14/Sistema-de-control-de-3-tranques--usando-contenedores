@@ -1,4 +1,7 @@
-git add --all
+git config --global user.email "carmar141414@hotmail.com"
+git config --global user.name "carmar14"
 git commit -a
+git add --all
+
 git push
 

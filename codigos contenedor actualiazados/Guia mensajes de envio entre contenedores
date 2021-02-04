@@ -1,3 +1,7 @@
+
+/root/ws/src/
+
+
 ---------------Hacer backups del contenedor base-------------
 lxc stop foxy
 lxc publish foxy --alias foxy3
