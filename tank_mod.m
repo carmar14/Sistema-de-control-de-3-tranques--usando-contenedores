@@ -3,7 +3,7 @@ clear
 close all
 
 %Parameters value of three?tank system
-mu13=0.5*100; mu20=0.675*100; mu32=0.5*100;
+mu13=0.5*10; mu20=0.675*10; mu32=0.5*10;
 S=0.0154; Sn=50*5e-5; W=sqrt ( 2 * 9.81 );
 %Output operat ing Points (m)
 Y10=0.400; Y20=0.200; Y30=0.300;
@@ -29,7 +29,12 @@ ve=ss(A,B,C,D);
 step(ve)
 close all
 
-tm=0.01;
+tm=0.001;
+tm2=0.005;
+H1=tf([0.65 8],[1 0]);
+H1d=c2d(H1,tm2);
+
+% H2=tf();
 [Ad, Bd] = c2d(A,B,tm) ;
 Cd=eye(3); %La salida del sistema son los tres estados
 Ada = [Ad zeros(3,2);
@@ -39,12 +44,12 @@ Bda = [Bd; zeros(2,2)];
 pc = [-0.0834  -0.0305  -0.0408   -100  -120];
 pd= exp(pc*tm);%[0.92 0.97 0.96 0.95 0.94];
 % K=acker(Ada, Bd1,pd)
-K = place(Ada,Bda,pd);
-K1= K(:,1:3);
-K2=K(:,4:5);
-% K2=[-0.95 -0.32; -0.3 -0.91]*10e-4;
-% K1=[21.6 3 -5; 2.9 19 -4]*10e-4;
-% K=[K1 K2];
+% K = place(Ada,Bda,pd);
+% K1= K(:,1:3);
+% K2=K(:,4:5);
+K2=[-0.95 -0.32; -0.3 -0.91]*10e-4;
+K1=[21.6 3 -5; 2.9 19 -4]*10e-4;
+K=[K1 K2];
 
 %valore maximos y minimos para evitar daños
 q_max=1.5*10e-4; %1.2
@@ -113,24 +118,35 @@ ai2_k1=0;
 u1=0;
 u2=0;
 
+ek1=0;
+ek2=0;
+uk1=0;
+uk2=0;
+
 for i=1:n-1
     %calculo el error
     e1=q1(i)-x1(i);
     e2=q2(i)-x2(i);
     
     %calculo la accion de control u1 y u2
-    ai1=e1+ai1_k1;
-    ai2=e2+ai2_k1;
-    ui1=K2(1,1)*ai1+K2(1,2)*ai2;
-    ui2=K2(2,1)*ai1+K2(2,2)*ai2;
-    ui1=-ui1; %accion integral
-    ui2=-ui2; %accion integral
-    up1=K1(1,1)*x1(i)+K1(1,2)*x2(i)+K1(1,3)*x3(i);
-    up2=K1(2,1)*x1(i)+K1(2,2)*x2(i)+K1(2,3)*x3(i);
-    up1=-up1; %accion propocional
-    up2=-up2; %accion propocional
-    u1=ui1+up1; %accion de control
-    u2=ui2+up2; %accion de control
+    u1 = 0.65*e1-0.61*ek1+uk1;
+    u2 = 0.65*e2-0.61*ek2+uk2;
+    ek1=e1;
+    ek2=e2;
+    uk1=u1;
+    uk2=u2;
+    %     ai1=e1+ai1_k1;
+%     ai2=e2+ai2_k1;
+%     ui1=K2(1,1)*ai1+K2(1,2)*ai2;
+%     ui2=K2(2,1)*ai1+K2(2,2)*ai2;
+%     ui1=-ui1; %accion integral
+%     ui2=-ui2; %accion integral
+%     up1=K1(1,1)*x1(i)+K1(1,2)*x2(i)+K1(1,3)*x3(i);
+%     up2=K1(2,1)*x1(i)+K1(2,2)*x2(i)+K1(2,3)*x3(i);
+%     up1=-up1; %accion propocional
+%     up2=-up2; %accion propocional
+%     u1=ui1+up1; %accion de control
+%     u2=ui2+up2; %accion de control
     %Saturacion para evitar daños en los acutadores
 %     if u1>q_max
 %         u1=q_max;
