@@ -203,3 +203,5 @@ xlabel('Tiempo (s)')
 ylabel('l_{3}(m)')
 legend('Level 3')
 title('Altura del tanque 3')
+
+close all
