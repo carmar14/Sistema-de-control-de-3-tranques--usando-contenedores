@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import math
 import random
 import scipy.io
+import timeit
 
 # --------parametros deñ sistema---------
 # Parameters value of three?tank system
@@ -59,7 +60,7 @@ Bd = np.array([[B11, B12],
 # --------parametros deñ sistema---------
 tm = 0.001
 n = 60 * 200
-t = tm*np.linspace(0, n, num=n)
+t = tm * np.linspace(0, n, num=n)
 
 # ----------variables--------
 # ----------referencias--------
@@ -95,7 +96,13 @@ t2 = int(random.uniform(350, 750))
 q1 = np.append(q1, ref1)
 q2 = np.append(q2, ref2)
 
+latencia_m = []
+latencia_c = []
+latencia_a = []
+
 for i in range(len(t) - 1):
+    # ---------medición accion de control----
+    inicio = timeit.default_timer()
     e1 = q1[i] - x1[i]
     e2 = q2[i] - x2[i]
 
@@ -107,13 +114,28 @@ for i in range(len(t) - 1):
     ek2 = e2
     uk1 = u1
     uk2 = u2
+    fin = timeit.default_timer()
+    laten = fin - inicio
+    latencia_c.append(laten)
+    if i == len(t):
+        scipy.io.savemat('lat_c.mat', {'lat_c': latencia_c})
+    # ---------medición accion de control----
 
+    #----------medición actuación------------
+    inicio = timeit.default_timer()
     # calculo    los    estados
     x = np.array([[x1[i]], [x2[i]], [x3[i]]])
     # print('x1 ,', x[1])
     u = np.array([[u1], [u2]])
 
     x_k1 = np.matmul(Ad, x) + np.matmul(Bd, u)
+
+    fin = timeit.default_timer()
+    laten = fin - inicio
+    latencia_a.append(laten)
+    if i == len(t):
+        scipy.io.savemat('lat_a.mat', {'lat_a': latencia_a})
+    # ----------medición actuación------------
 
     # ----------actualizacion----------
     # print(i)
@@ -146,8 +168,11 @@ q2 = q2.reshape(q2.shape[0], 1)
 
 if False:
     scipy.io.savemat('datos_attack_2.mat',
-               {'x1': x1, 'x2': x2, 'x3': x3, 'u1': u1c, 'u2': u2c, 'q1': q1, 'q2': q2, 'al1': al1, 'al2': al2,
-               'al3': al3, 'al4': al4})
+                     {'x1': x1, 'x2': x2, 'x3': x3, 'u1': u1c, 'u2': u2c, 'q1': q1, 'q2': q2, 'al1': al1, 'al2': al2,
+                      'al3': al3, 'al4': al4})
+
+scipy.io.savemat('lat_c.mat', {'lat_c': latencia_c})
+scipy.io.savemat('lat_a.mat', {'lat_a': latencia_a})
 
 plt.figure()
 plt.subplot(3, 1, 1)
@@ -156,15 +181,15 @@ plt.plot(t, q1, '--r', linewidth=1)
 plt.legend(['$x_1$', '$q_1$'], loc='lower right')
 plt.ylabel('Nivel 1 (m)')
 plt.grid()
-#plt.xlim(0, 2000)
+# plt.xlim(0, 2000)
 # plt.xlim(2000,4000)
 # plt.ylim(0.32, 0.58)
 plt.subplot(3, 1, 2)
 plt.plot(t, x2, 'b', linewidth=1.2)
 plt.plot(t, q2, '--r', linewidth=1)
-plt.legend(['$x_2$','$q_2$'], loc='lower right')
+plt.legend(['$x_2$', '$q_2$'], loc='lower right')
 plt.ylabel('Nivel 2 (m)')
-#plt.xlim(0, 2000)
+# plt.xlim(0, 2000)
 # plt.xlim(2000,4000)
 # plt.ylim(0.15, 0.4)
 plt.grid()
@@ -172,9 +197,8 @@ plt.subplot(3, 1, 3)
 plt.plot(t, x3, 'b', linewidth=1.2)
 plt.xlabel('Tiempo(s)')
 plt.ylabel('Nivel 3 (m)')
-#plt.xlim(0, 2000)
+# plt.xlim(0, 2000)
 plt.legend(['$x_3$'], loc='lower right')
 plt.grid()
 
 plt.show()
-
