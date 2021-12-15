@@ -347,3 +347,10 @@ D(i)=Dmin(i);
 D_(3,:)=D/10;
 
 %----------Nodo actuación---------
+C=[1.5 5 0.3];
+Dcgr=80;
+Tsf=36.2;
+Dmax(1)=Dcgr-(C(2)+C(3)+Tsf); %medicion
+Dmax(2)=Dcgr-(C(1)+C(3)+Tsf); % control
+Dmax(3)=Dcgr-(C(1)+C(2)); % actuacion
+

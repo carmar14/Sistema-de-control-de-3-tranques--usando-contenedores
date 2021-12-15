@@ -45,22 +45,25 @@ deadline=C;
 %---------nueva minimizacion para T2----
 
 i=2;
+n=1;
 % for i=1:3
 for s=0:k-1
-    t=min(s*P(i)+D(i),R);
-    
+    t=min(s*P(i)+D(i),R);       
     deadline(i)=C(i);
     while t>(s*P(i)+C(i))
+        tt(n)=t;
         H=0;
         for j=1:3
             H=H+C(j)*floor((t+P(j)-D(j))/P(j)); % calcula de H(t)
         end
+        h(n)=H;
         
         if (t-H)<C(i)
             deadline(i)=H+C(i)-s*P(i);
             break;
         end
         t=t-1;
+        n=n+1;
         
     end
     Dmin(i)=max(Dmin(i),deadline(i));
@@ -72,21 +75,25 @@ D(i)=Dmin(i);
 %---------nueva minimizacion para T1----
 i=1;
 % for i=1:3
+n=1;
+% for i=1:3
 for s=0:k-1
-    t=min(s*P(i)+D(i),R);
-    
+    t=min(s*P(i)+D(i),R);       
     deadline(i)=C(i);
     while t>(s*P(i)+C(i))
+        tt(n)=t;
         H=0;
         for j=1:3
-            H=H+C(j)*floor((t+P(j)-D(j))/P(j));
+            H=H+C(j)*floor((t+P(j)-D(j))/P(j)); % calcula de H(t)
         end
+        h(n)=H;
         
         if (t-H)<C(i)
             deadline(i)=H+C(i)-s*P(i);
             break;
         end
         t=t-1;
+        n=n+1;
         
     end
     Dmin(i)=max(Dmin(i),deadline(i));
@@ -97,21 +104,25 @@ D(i)=Dmin(i);
 
 %---------nueva minimizacion para T3----
 i=3;
+n=1;
 % for i=1:3
 for s=0:k-1
-    t=min(s*P(i)+D(i),R);    
+    t=min(s*P(i)+D(i),R);       
     deadline(i)=C(i);
     while t>(s*P(i)+C(i))
+        tt(n)=t;
         H=0;
         for j=1:3
-            H=H+C(j)*floor((t+P(j)-D(j))/P(j));
+            H=H+C(j)*floor((t+P(j)-D(j))/P(j)); % calcula de H(t)
         end
+        h(n)=H;
         
         if (t-H)<C(i)
             deadline(i)=H+C(i)-s*P(i);
             break;
         end
         t=t-1;
+        n=n+1;
         
     end
     Dmin(i)=max(Dmin(i),deadline(i));
