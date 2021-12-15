@@ -1,7 +1,14 @@
 clc
 close all
 clear
-
+%----------task------
+% ----tao={T1,T2,T3}
+% ----T_i=(C_i,D_i,P_i)
+% minimizar la secuencia T2,T1,T3
+%papers:
+%--H(t)=IMPROVEMENT IN FEASmILITY TESTING FOR REALTIME TASKS
+%--deadlinemin: Minimum deadline calculation for periodic real-time
+%               tasks in dynamic priority systems
 C=[1 3 5];
 D=[7 10 20];
 P=[7 10 20];
@@ -44,7 +51,7 @@ for s=0:k-1
     while t>(s*P(i)+C(i))
         H=0;
         for j=1:3
-            H=H+C(j)*floor((t+P(j)-D(j))/P(j));
+            H=H+C(j)*floor((t+P(j)-D(j))/P(j)); % calcula de H(t)
         end
         if (t-H)<C(i)
             deadline(i)=H+C(i)-s*P(i);
