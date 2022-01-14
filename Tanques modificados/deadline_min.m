@@ -28,7 +28,7 @@ while (K_~=K)
     G=0;
 end
 
-R=K_;
+R=K_
 for i=1:3
     k(i)=ceil(R/P(i));
 end
@@ -144,7 +144,7 @@ while (K_~=K)
     G=0;
 end
 
-R=K_;
+R=K_
 for i=1:3
     k(i)=ceil(R/P(i));
 end
@@ -259,7 +259,7 @@ while (K_~=K)
     G=0;
 end
 
-R=K_;
+R=K_
 for i=1:3
     k(i)=ceil(R/P(i));
 end
@@ -350,6 +350,10 @@ D_(3,:)=D/10;
 C=[1.5 5 0.3];
 Dcgr=80;
 Tsf=35;%36.6;%36.2;
+Dmax(1)=Dcgr-(1.7+6.3+Tsf); %medicion
+Dmax(2)=Dcgr-(7.5+6.3+Tsf); % control
+Dmax(3)=Dcgr-(7.5+1.7); % actuacion
+
 Dmax(1)=Dcgr-(C(2)+C(3)+Tsf); %medicion
 Dmax(2)=Dcgr-(C(1)+C(3)+Tsf); % control
 Dmax(3)=Dcgr-(C(1)+C(2)); % actuacion
