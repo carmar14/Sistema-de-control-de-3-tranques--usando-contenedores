@@ -311,28 +311,28 @@ end
 if t == 1
     lat_m_=[];
     a = 1;
-    b = 1.175;
+    b = 1.275;
     datos = (b-a).*rand(1,200) + a;
     lat_m_ = [lat_m_ datos];
 
-    a = 1.175;
-    b = 1.575;
+    a = 1.275;
+    b = 1.675;
     datos = (b-a).*rand(1,550) + a;
     lat_m_ = [lat_m_ datos];
 
-    a = 1.575;
-    b = 2.723;
+    a = 1.675;
+    b = 2.923;
     datos = (b-a).*rand(1,1040) + a;
     lat_m_ = [lat_m_ datos];
     
 
-    a = 2.723;
-    b = 3.865;
+    a = 2.923;
+    b = 3.965;
     datos = (b-a).*rand(1,910) + a;
     lat_m_ = [lat_m_ datos];
 
-    a = 3.865;
-    b = 4.975;
+    a = 3.965;
+    b = 5.975;
     datos = (b-a).*rand(1,300) + a;
     lat_m_ = [lat_m_ datos];
     
@@ -340,27 +340,27 @@ if t == 1
     
     lat_c_=[];
     a = 2.156;
-    b = 2.275;
+    b = 2.575;
     datos = (b-a).*rand(1,100) + a;
     lat_c_ = [lat_c_ datos];
 
-    a = 2.275;
-    b = 3.475;
+    a = 2.575;
+    b = 3.875;
     datos = (b-a).*rand(1,950) + a;
     lat_c_ = [lat_c_ datos];
 
-    a = 3.475;
-    b = 4.523;
+    a = 3.875;
+    b = 4.823;
     datos = (b-a).*rand(1,1040) + a;
     lat_c_ = [lat_c_ datos];
 
-    a = 4.523;
-    b = 5.665;
+    a = 4.823;
+    b = 5.965;
     datos = (b-a).*rand(1,610) + a;
     lat_c_ = [lat_c_ datos];
 
-    a = 5.665;
-    b = 6.256;
+    a = 5.965;
+    b = 8.256;
     datos = (b-a).*rand(1,300) + a;
     lat_c_ = [lat_c_ datos]; 
 
@@ -368,27 +368,27 @@ if t == 1
 
     lat_a_=[];
     a = 0.276;
-    b = 0.475;
+    b = 0.575;
     datos = (b-a).*rand(1,200) + a;
     lat_a_ = [lat_a_ datos];
 
-    a = 0.475;
-    b = 1.575;
+    a = 0.575;
+    b = 1.875;
     datos = (b-a).*rand(1,950) + a;
     lat_a_ = [lat_a_ datos];
 
-    a = 1.575;
-    b = 2.723;
+    a = 1.875;
+    b = 2.923;
     datos = (b-a).*rand(1,1040) + a;
     lat_a_ = [lat_a_ datos];
 
-    a = 2.723;
-    b = 3.765;
+    a = 2.923;
+    b = 3.965;
     datos = (b-a).*rand(1,610) + a;
     lat_a_ = [lat_a_ datos];
 
-    a = 3.765;
-    b = 4.175;
+    a = 3.965;
+    b = 6.675;
     datos = (b-a).*rand(1,200) + a;
     lat_a_ = [lat_a_ datos];
 

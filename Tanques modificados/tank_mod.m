@@ -29,7 +29,7 @@ ve=ss(A,B,C,D);
 step(ve)
 close all
 
-tm=0.001;
+tm=0.005;
 tm2=0.005;
 H1=tf([0.65 8],[1 0]);
 H1d=c2d(H1,tm2);
@@ -204,4 +204,4 @@ ylabel('l_{3}(m)')
 legend('Level 3')
 title('Altura del tanque 3')
 
-close all
+% close all
