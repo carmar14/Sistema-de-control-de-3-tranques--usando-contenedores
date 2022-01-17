@@ -18,39 +18,50 @@ def adjacent_values(vals, q1, q3):
 fig7, axs7 = plt.subplots(nrows=1, ncols=1, figsize=(9, 4))
 
 # -----------------sample time 5ms-----------------
+
 mat = scipy.io.loadmat(
-    r'D:\Acer\Documentos\GitHub\cyberattack_ph\control_ph_python\Modulos para contenedores\singu\latencia2.mat')
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_m_rt.mat')
 mat2 = scipy.io.loadmat(
-    r'D:\Acer\Documentos\GitHub\cyberattack_ph\control_ph_python\Modulos para contenedores\singu\lat_cm_rt.mat')
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_c_rt.mat')
 mat3 = scipy.io.loadmat(
-    r'D:\Acer\Documentos\GitHub\cyberattack_ph\control_ph_python\Modulos para contenedores\singu\lat_control_slave_rt.mat')
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_a_rt.mat')
 mat4 = scipy.io.loadmat(
-    r'D:\Acer\Documentos\GitHub\cyberattack_ph\control_ph_python\Modulos para contenedores\singu\lat_proceso_slave_rt.mat')
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_m_.mat')
+mat5 = scipy.io.loadmat(
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_c_.mat')
+mat6 = scipy.io.loadmat(
+    r'D:\Acer\Documentos\GitHub\Sistema-de-control-de-3-tranques--usando-contenedores\Tanques modificados\latencias_rt_1s\lat_a_.mat')
+
 # -------latencias-------
 # lat_ = mat['lat'] * 1000 # .tolist()
-lat_ = mat['lat']  # .tolist()
-lat_cm_rt = mat2['lat_cm_rt'] * 1000  # .tolist()
-lat_cs_rt = mat3['lat_cs_rt'] * 1000
-lat_ps_rt = mat4['lat_ps_rt'] * 1000
+lat_m_rt = mat['lat_m_rt']
+lat_c_rt = mat2['lat_c_rt']
+lat_a_rt = mat3['lat_a_rt']
+lat_m_ = mat4['lat_m_']
+lat_c_ = mat5['lat_c_']
+lat_a_ = mat6['lat_a_']
 
 '''
-lat = np.append(lat_, lat_cm_rt, axis=0)
-lat = np.append(lat, lat_cs_rt, axis=0)
-lat = np.append(lat, lat_ps_rt, axis=0)
+lat = np.append(lat_, lat_m_rt, axis=0)
+lat = np.append(lat, lat_c_rt, axis=0)
+lat = np.append(lat, lat_m_rt, axis=0)
 '''
-lat = np.append(lat_cm_rt, lat_cs_rt, axis=0)
-lat = np.append(lat, lat_ps_rt, axis=0)
+lat = np.append(lat_m_rt, lat_c_rt, axis=0)
+lat = np.append(lat, lat_a_rt, axis=0)
+lat = np.append(lat, lat_m_, axis=0)
+lat = np.append(lat, lat_c_, axis=0)
+lat = np.append(lat, lat_a_, axis=0)
 lat = lat.tolist()
 
 # print(type(lat))
-# print(len(lat))
+print(len(lat))
 
 
-max_ = np.amax(lat_)
-min_ = np.amin(lat_)
-mu = lat_.mean()
-median = np.median(lat_)
-sigma = lat_.std()
+max_ = np.amax(lat_m_rt)
+min_ = np.amin(lat_m_rt)
+mu = lat_m_rt.mean()
+median = np.median(lat_m_rt)
+sigma = lat_m_rt.std()
 textstr = '\n'.join((
     r'$\mu=%.4f$' % (mu,),
     r'$\mathrm{median}=%.4f$' % (median,),
@@ -59,18 +70,18 @@ textstr = '\n'.join((
     r'$Best=%.4f$' % (min_,)))
 props = dict(boxstyle='round', facecolor='#8B8CDB', alpha=0.5)
 
-cell_text = np.empty((3, 5))
-# cell_text[0][0] = mu
-# cell_text[0][1] = median
-# cell_text[0][2] = sigma
-# cell_text[0][3] = max_
-# cell_text[0][4] = min_
+cell_text = np.empty((6, 5))
+cell_text[0][0] = mu
+cell_text[0][1] = median
+cell_text[0][2] = sigma
+cell_text[0][3] = max_
+cell_text[0][4] = min_
 
-max_ = np.amax(lat_cm_rt)
-min_ = np.amin(lat_cm_rt)
-mu = lat_cm_rt.mean()
-median = np.median(lat_cm_rt)
-sigma = lat_cm_rt.std()
+max_ = np.amax(lat_c_rt)
+min_ = np.amin(lat_c_rt)
+mu = lat_c_rt.mean()
+median = np.median(lat_c_rt)
+sigma = lat_c_rt.std()
 textstr2 = '\n'.join((
     r'$\mu=%.4f$' % (mu,),
     r'$\mathrm{median}=%.4f$' % (median,),
@@ -79,17 +90,17 @@ textstr2 = '\n'.join((
     r'$Best=%.4f$' % (min_,)))
 props2 = dict(boxstyle='round', facecolor='#8B1F8A', alpha=0.5)
 
-cell_text[0][0] = mu
-cell_text[0][1] = median
-cell_text[0][2] = sigma
-cell_text[0][3] = max_
-cell_text[0][4] = min_
+cell_text[1][0] = mu
+cell_text[1][1] = median
+cell_text[1][2] = sigma
+cell_text[1][3] = max_
+cell_text[1][4] = min_
 
-max_ = np.amax(lat_cs_rt)
-min_ = np.amin(lat_cs_rt)
-mu = lat_cs_rt.mean()
-median = np.median(lat_cs_rt)
-sigma = lat_cs_rt.std()
+max_ = np.amax(lat_a_rt)
+min_ = np.amin(lat_a_rt)
+mu = lat_a_rt.mean()
+median = np.median(lat_a_rt)
+sigma = lat_a_rt.std()
 textstr3 = '\n'.join((
     r'$\mu=%.4f$' % (mu,),
     r'$\mathrm{median}=%.4f$' % (median,),
@@ -98,17 +109,17 @@ textstr3 = '\n'.join((
     r'$Best=%.4f$' % (min_,)))
 props3 = dict(boxstyle='round', facecolor='#FF1F8A', alpha=0.5)
 
-cell_text[1][0] = mu
-cell_text[1][1] = median
-cell_text[1][2] = sigma
-cell_text[1][3] = max_
-cell_text[1][4] = min_
+cell_text[2][0] = mu
+cell_text[2][1] = median
+cell_text[2][2] = sigma
+cell_text[2][3] = max_
+cell_text[2][4] = min_
 
-max_ = np.amax(lat_ps_rt)
-min_ = np.amin(lat_ps_rt)
-mu = lat_ps_rt.mean()
-median = np.median(lat_ps_rt)
-sigma = lat_ps_rt.std()
+max_ = np.amax(lat_m_)
+min_ = np.amin(lat_m_)
+mu = lat_m_.mean()
+median = np.median(lat_m_)
+sigma = lat_m_.std()
 textstr4 = '\n'.join((
     r'$\mu=%.4f$' % (mu,),
     r'$\mathrm{median}=%.4f$' % (median,),
@@ -117,25 +128,65 @@ textstr4 = '\n'.join((
     r'$Best=%.4f$' % (min_,)))
 props4 = dict(boxstyle='round', facecolor='#DF5014', alpha=0.5)
 
-cell_text[2][0] = mu
-cell_text[2][1] = median
-cell_text[2][2] = sigma
-cell_text[2][3] = max_
-cell_text[2][4] = min_
+cell_text[3][0] = mu
+cell_text[3][1] = median
+cell_text[3][2] = sigma
+cell_text[3][3] = max_
+cell_text[3][4] = min_
+
+max_ = np.amax(lat_c_)
+min_ = np.amin(lat_c_)
+mu = lat_c_.mean()
+median = np.median(lat_c_)
+sigma = lat_c_.std()
+textstr5 = '\n'.join((
+    r'$\mu=%.4f$' % (mu,),
+    r'$\mathrm{median}=%.4f$' % (median,),
+    r'$\sigma=%.4f$' % (sigma,),
+    r'$Worst=%.4f$' % (max_,),
+    r'$Best=%.4f$' % (min_,)))
+props5 = dict(boxstyle='round', facecolor='#005714', alpha=0.5)
+
+cell_text[4][0] = mu
+cell_text[4][1] = median
+cell_text[4][2] = sigma
+cell_text[4][3] = max_
+cell_text[4][4] = min_
+
+max_ = np.amax(lat_a_)
+min_ = np.amin(lat_a_)
+mu = lat_a_.mean()
+median = np.median(lat_a_)
+sigma = lat_a_.std()
+textstr6 = '\n'.join((
+    r'$\mu=%.4f$' % (mu,),
+    r'$\mathrm{median}=%.4f$' % (median,),
+    r'$\sigma=%.4f$' % (sigma,),
+    r'$Worst=%.4f$' % (max_,),
+    r'$Best=%.4f$' % (min_,)))
+props6 = dict(boxstyle='round', facecolor='#351554', alpha=0.5)
+
+cell_text[5][0] = mu
+cell_text[5][1] = median
+cell_text[5][2] = sigma
+cell_text[5][3] = max_
+cell_text[5][4] = min_
 
 # place a text box in upper left in axes coords
 
-# axs7.text(0.12, 0.35, textstr, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props)
-axs7.text(0.23, 0.35, textstr2, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props2)
-axs7.text(0.53, 0.35, textstr3, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props3)
-axs7.text(0.75, 0.35, textstr4, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props4)
+axs7.text(0.12, 0.45, textstr, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props)
+axs7.text(0.30, 0.45, textstr2, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props2)
+axs7.text(0.45, 0.35, textstr3, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props3)
+axs7.text(0.56, 0.45, textstr4, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props4)
+axs7.text(0.86, 0.75, textstr5, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props5)
+axs7.text(0.78, 0.25, textstr6, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props6)
 # axs7.text(0.57, 0.35, textstr5, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props5)
 # axs7.text(0.65, 0.25, textstr6, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props6)
 # axs7.text(0.77, 0.25, textstr7, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props7)
 # axs7.text(0.9, 0.25, textstr8, transform=axs7.transAxes, fontsize=7, verticalalignment='top', bbox=props8)
 
 columns = ('$\mu$', '$\mathrm{Median}$', '$\sigma$', '$Worst$', '$Best$')
-rows = ['Singularity Controller Master', 'Singularity Controller Slave', 'Singularity Process Slave']
+rows = ['Medición rt', 'Control rt', 'Actuación rt', 'Medición Singularity', 'Control Singularity', 'Actuación Singularity']
 # rows = ['Singularity Detection system', 'Singularity Controller Master',
 #       'Singularity Controller Slave', 'Singularity Process Slave']
 # 'Detection system', 'RT-Linux Controller Master', 'RT-Linux Controller Slave',
@@ -160,7 +211,7 @@ for pc in parts['bodies']:
         pc.set_facecolor('#8B1F8A')
     if i == 3:
         pc.set_facecolor('#FF1F8A')
-    '''
+
     if i == 4:
         pc.set_facecolor('#DF5014')
 
@@ -168,14 +219,12 @@ for pc in parts['bodies']:
         pc.set_facecolor('#005714')
     if i == 6:
         pc.set_facecolor('#351554')
-    if i == 7:
-        pc.set_facecolor('#790020')
-    if i == 8:
-        pc.set_facecolor('#0093AC')
-    '''
+
+
     pc.set_edgecolor('black')
     pc.set_alpha(1)
     i = i + 1
+
 
 quartile1, medians, quartile3 = np.percentile(lat, [25, 50, 75], axis=1)
 whiskers = np.array([
@@ -196,48 +245,61 @@ axs7.yaxis.grid(True)
 axs7.set_xticks([y + 1 for y in range(len(lat))])
 axs7.set_xlabel('Tipo de aplicación')
 axs7.set_ylabel('Tiempo de ejecución de la aplicación(ms)')
-axs7.set_ylim(0, 4)
-axs7.set_xticklabels(['Control maestro', 'Control esclavo', 'Medición'])
+#axs7.set_ylim(0, 4)
+axs7.set_xticklabels(['Medición rt', 'Control rt', 'Actuación rt', 'Medición Singularity', 'Control Singularity', 'Actuación Singularity'])
 #                    'Singularity \n Controller Slave', 'Singularity \n Process Slave'])
 # axs7.set_xticklabels(['Singularity \n Detection system', 'Singularity \n Controller Master',
 #                    'Singularity \n Controller Slave', 'Singularity \n Process Slave'])
 # 'Detection \n system', 'RT-Linux \n Controller Master', 'RT-Linux \n Controller Slave',
 # 'RT-Linux \n Process Slave'])
-# lat_cm_rt = np.append(lat_cm_rt, axis=0)
-lat_ = mat['lat'] * 1000
-lat_ = lat_.tolist()
-lat_cs_rt = lat_cs_rt.tolist()
-lat_ps_rt = lat_ps_rt.tolist()
-lat_cm_rt = lat_cm_rt.tolist()
+# lat_m_rt = np.append(lat_m_rt, axis=0)
 
-fig, ax = plt.subplots(2, 2)
-ax[0, 0].set_xlim(np.amin(lat_cm_rt), np.amax(lat_cm_rt))
-ax[0, 0].yaxis.grid(True)
-ax[0, 0].set_ylabel('Número de muestras')
+
+
+lat_a_ = lat_a_.tolist()
+lat_c_rt = lat_c_rt.tolist()
+lat_m_rt = lat_m_rt.tolist()
+lat_a_rt = lat_a_rt.tolist()
+lat_m_ = lat_m_.tolist()
+lat_c_ = lat_c_.tolist()
+
+
+fig, ax = plt.subplots(3, 1)
+ax[0].set_xlim(np.amin(lat_m_rt), np.amax(lat_m_rt))
+ax[0].yaxis.grid(True)
+ax[0].set_ylabel('Número de muestras')
 # ax[0, 0].set_xlabel('Tiempo de ejecución de la aplicación(ms)')
-ax[0, 0].hist(lat_cm_rt, bins=137, linewidth=0.5, edgecolor="black")
-ax[0, 0].set_title('Distribución de los datos para la aplicación del Control maestro')
+ax[0].hist(lat_m_rt,color='blue', alpha=0.75, bins=20, linewidth=0.5, edgecolor="black")
+ax[0].hist(lat_m_, color='red', alpha=0.45, bins=20, linewidth=0.5, edgecolor="black")
+ax[0].legend(['RT', 'Singularity'])
+ax[0].set_title('Distribución de los datos para la aplicación del Medición')
 
-ax[0, 1].set_xlim(np.amin(lat_cs_rt), np.amax(lat_cs_rt))
-ax[0, 1].yaxis.grid(True)
-ax[0, 1].set_ylabel('Número de muestras')
+ax[1].set_xlim(np.amin(lat_c_rt), np.amax(lat_c_rt))
+ax[1].yaxis.grid(True)
+ax[1].set_ylabel('Número de muestras')
 # ax[0, 1].set_xlabel('Tiempo de ejecución de la aplicación(ms)')
-ax[0, 1].hist(lat_cs_rt, bins=137, linewidth=0.5, edgecolor="black")
-ax[0, 1].set_title('Distribución de los datos para la aplicación del Control esclavo')
+ax[1].hist(lat_c_rt,color='blue', alpha=0.75, bins=20, linewidth=0.5, edgecolor="black")
+ax[1].hist(lat_c_, color='red', alpha=0.45, bins=20, linewidth=0.5, edgecolor="black")
+ax[1].legend(['RT', 'Singularity'])
+ax[1].set_title('Distribución de los datos para la aplicación del Control')
 
-ax[1, 0].set_xlim(np.amin(lat_ps_rt), np.amax(lat_ps_rt))
-ax[1, 0].yaxis.grid(True)
-ax[1, 0].set_ylabel('Número de muestras')
-ax[1, 0].set_xlabel('Tiempo de ejecución de la aplicación(ms)')
-ax[1, 0].hist(lat_ps_rt, bins=137, linewidth=0.5, edgecolor="black")
-ax[1, 0].set_title('Distribución de los datos para la aplicación de la Medición')
+ax[2].set_xlim(np.amin(lat_a_rt), np.amax(lat_a_rt))
+ax[2].yaxis.grid(True)
+ax[2].set_ylabel('Número de muestras')
+ax[2].set_xlabel('Tiempo de ejecución de la aplicación(ms)')
+ax[2].hist(lat_a_rt, color='blue', alpha=0.75, bins=20, linewidth=0.5, edgecolor="black")
+ax[2].hist(lat_a_, color='red', alpha=0.45, bins=20, linewidth=0.5, edgecolor="black")
+ax[2].legend(['RT', 'Singularity'])
+ax[2].set_title('Distribución de los datos para la aplicación de la Actuación')
 
-ax[1, 1].set_xlim(np.amin(lat_), np.amax(lat_))
+'''
+ax[1, 1].set_xlim(np.amin(lat_a_), np.amax(lat_a_))
 ax[1, 1].yaxis.grid(True)
 ax[1, 1].set_ylabel('Número de muestras')
 ax[1, 1].set_xlabel('Tiempo de ejecución de la aplicación(ms)')
-ax[1, 1].hist(lat_, bins=137, linewidth=0.5, edgecolor="black")
+ax[1, 1].hist(lat_a_, bins=23, linewidth=0.5, edgecolor="black")
 ax[1, 1].set_title('Distribución de los datos para la aplicación del Sistema de monitoreo')
-
+'''
+fig.tight_layout()
 plt.show()
 
